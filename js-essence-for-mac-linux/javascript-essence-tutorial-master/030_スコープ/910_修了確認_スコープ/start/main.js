@@ -9,8 +9,8 @@
 function fn() {
     if(true) {
         let a = 'fn called';
+        return a; // ReferenceError: a is not defined
     }
-    return a; // ReferenceError: a is not defined
 }
 
 const result = fn();
@@ -26,7 +26,7 @@ function fn2() {
     console.log(val); // 期待値->'val1'
 
     if(true) {
-        var val = 'val2';
+        const val = 'val2';
         console.log(val); // 期待値->'val2'
     }
 
@@ -45,4 +45,40 @@ fn2();
  * increment(); // 期待値->3
  * increment(); // 期待値->4
  */
+// function incrementFactory() {
+//     let i = 0;
+
+//     function plus() {
+//         i ++;
+//         console.log(i)
+//     }
+
+//     return plus();
+// }
+
+// const increment = incrementFactory();
+// console.log(increment);
+// increment();
+
+// let、constはブロックスコープとなるが
+// function（とvar）はブロックスコープとならないためグローバルに参照できる
+// そのためブロック内でlet(const)で変数を初期化、functionの関数宣言で変数をいじる
+// グローバルでその関数を実行すれば、変数の初期化はコード読み込み時のみ
+// 関数によって編集された変数の値がそのまま維持されるということになる
+{
+    let num = 0;
+    function increment() {
+        num ++;
+        console.log(num);
+    }
+}
+
+increment();
+increment();
+increment();
+increment();
+
+
+
+
 
