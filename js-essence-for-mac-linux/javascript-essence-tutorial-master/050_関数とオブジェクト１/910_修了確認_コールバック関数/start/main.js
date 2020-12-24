@@ -8,11 +8,16 @@
  */
 const person = {
     hello: function () {
+        // returnで文字列を返しているだけなのでこのままではコンソールには文字列が表示されない
+        // →setTimeout実行時にconsole.logでperson.helloを実行する無名関数を作る
         return 'hello Tom';
     }
 }
-
-// setTimeout(/** ここに追記 */, 1000);
+// 不正解
+// setTimeout(person.hello, 1000);
+setTimeout(() => {
+    console.log(person.hello());
+}, 1000);
 
 /**
  * 問題２：
@@ -24,6 +29,9 @@ const person = {
  * ※alertは第一引数に渡した文字列を画面のダイアログに表
  * 示する関数です。
  */
+setTimeout(() => {
+    alert(person.hello());
+}, 1000);
 
 
 /**
@@ -53,6 +61,7 @@ obj.greeting = function() {
     console.log('hey');
 }
 
+// →'hey'不正解
 
 /**
  * 問題４：
@@ -63,34 +72,34 @@ obj.greeting = function() {
  * 
  * ※コールバック関数を用いて実装してください。
  */
-function calcFactory(val) {
+function calcFactory(val, callback) {
     return {
         plus: function(target) {
             const newVal = val + target;
-            console.log(`${val} + ${target} = ${newVal}`);
+            callback(`${val} + ${target} = ${newVal}`);
             val = newVal;
         },
         minus: function(target) {
             const newVal = val - target;
-            console.log(`${val} - ${target} = ${newVal}`);
+            callback(`${val} - ${target} = ${newVal}`);
             val = newVal;
         },
         multiply: function(target) {
             const newVal = val * target;
-            console.log(`${val} x ${target} = ${newVal}`);
+            callback(`${val} x ${target} = ${newVal}`);
             val = newVal;
         },
         divide: function(target) {
             const newVal = val / target;
-            console.log(`${val} / ${target} = ${newVal}`);
+            callback(`${val} / ${target} = ${newVal}`);
             val = newVal;
         }
     };
 }
 
-const calc = calcFactory(10);
-calc.plus(5); 
-calc.minus(3); 
+const calc = calcFactory(10, alert);
+calc.plus(5);
+calc.minus(3);
 calc.multiply(3);
 calc.divide(2);
 
