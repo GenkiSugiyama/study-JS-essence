@@ -31,7 +31,7 @@ var person = {
             console.log('Bye ' + this.name);
         };
         // aの宣言時のレキシカルスコープはグローバルスコープのwindowとなる
-        // そのためa内のthisw.nameはwindow.nameと同じになる
+        // そのためa内のthis.nameはwindow.nameと同じになる
         a();
     }
 }
