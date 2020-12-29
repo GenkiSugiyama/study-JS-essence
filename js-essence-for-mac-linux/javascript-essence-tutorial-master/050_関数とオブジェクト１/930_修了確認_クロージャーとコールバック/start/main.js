@@ -9,7 +9,7 @@
  * 
  */
 function hello(name) {
-  
+  クロージャー忘れた
 }
 
 /**
