@@ -9,10 +9,20 @@
  * 
  */
 function hello(name) {
-  クロージャー忘れた
+  // let name1 = name;
+
+  // // なんでクロージャー内の関数に引数指定いらない？？
+  // function hello1() {
+  //   console.log('hello ' + name1);
+  // }
+
+  // return hello1;
+  return function hello1() {
+    console.log('hello ' + name);
+  }
 }
 
 /**
  * 実行文は以下の通りです。
  */
-setTimeout(hello('Tom'), 1000);
+setTimeout(hello('Tom'), 5000);
