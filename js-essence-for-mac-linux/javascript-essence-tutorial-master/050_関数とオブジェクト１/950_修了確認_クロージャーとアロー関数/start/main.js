@@ -5,12 +5,14 @@
  * 問題１：
  * addNumberFactoryを短く書き直してみましょう。
  */
-function addNumberFactory(num) {
-    function addNumber(value) {
-        return num + value;
-    }
-    return addNumber;
-}
+// function addNumberFactory(num) {
+//     function addNumber(value) {
+//         return num + value;
+//     }
+//     return addNumber;
+// }
+
+const addNumberFactory = (num) => (value) => num + value;
 
 const add5 = addNumberFactory(5);
 const result = add5(10);
@@ -20,16 +22,31 @@ console.log(result);
  * 問題２：
  * incrementFactoryを短く書き直してみましょう。
  */
-function incrementFactory() {
+// function incrementFactory() {
     
+//     let num = 0;
+
+// returnで関数をそのまま返しているので「return function〜」と変更できる
+//     function a() {
+//         num = num + 1;
+//         console.log(num);
+//     }
+//     return a;
+// }
+
+const incrementFactory = () => {
     let num = 0;
 
-    function a() {
+    // const a = () => {
+    //     num = num + 1;
+    //     console.log(num);
+    // }
+
+    // return a;
+    return () => {
         num = num + 1;
         console.log(num);
     }
-
-    return a;
 }
 
 const increment = incrementFactory();
