@@ -8,22 +8,45 @@ function calcFactory(val, callback) {
     return {
         plus: function(target) {
             const newVal = val + target;
-            callback(`${val} + ${target} = ${newVal}`);
+            // ↓元のメソッド関数
+            // callback(`${val} + ${target} = ${newVal}`);
+
+            const result1 = function() {
+                return `${val} + ${target} = ${newVal}`;
+            }
+            setTimeout(callback.bind('', result1()), 1000);
+
+            // ↓callback自体にconsole.log or alertが渡されるため、メソッド内でcallbackを再定義したらだめ
+            // const callback = function(){
+            //     console.log(`${val} + ${target} = ${newVal}`)
+            // }
             val = newVal;
         },
         minus: function(target) {
             const newVal = val - target;
-            callback(`${val} - ${target} = ${newVal}`);
+            // callback(`${val} - ${target} = ${newVal}`);
+            const result2 = function() {
+                return `${val} - ${target} = ${newVal}`;
+            }
+            setTimeout(callback.bind('', result2()), 1000);
             val = newVal;
         },
         multiply: function(target) {
             const newVal = val * target;
-            callback(`${val} x ${target} = ${newVal}`);
+            // callback(`${val} x ${target} = ${newVal}`);
+            const result2 = function() {
+                return `${val} x ${target} = ${newVal}`;
+            }
+            setTimeout(callback.bind('', result2()), 1000);
             val = newVal;
         },
         divide: function(target) {
             const newVal = val / target;
-            callback(`${val} / ${target} = ${newVal}`);
+            // callback(`${val} / ${target} = ${newVal}`);
+            const result2 = function() {
+                return `${val} / ${target} = ${newVal}`;
+            }
+            setTimeout(callback.bind('', result2()), 1000);
             val = newVal;
         }
     };
