@@ -3,7 +3,8 @@ function Person(name, age) {
     this.name = name;
     this.age = age;
     // プロパティとしてthis.関数名と追加した場合の挙動とprototypeとして追加した挙動自体は同じ
-    // プロパティとして追加した場合は、インスタンスで実行する際に関数のコピーが渡されるのでメモリの消費が大きいためprototypeを使用する方がメモリの節約になる
+    // プロパティとして追加した場合は、インスタンスで実行する際に関数のコピーが渡されるのでメモリの消費が大きい。
+    // 各オブジェクトごとに参照先の関数が生成される
     // this.hello = function() {
     //     console.log('hello ' + this.name)
     // }
