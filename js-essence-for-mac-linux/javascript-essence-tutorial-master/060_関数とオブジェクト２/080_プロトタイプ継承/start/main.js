@@ -1,6 +1,6 @@
 // プロトタイプ継承：別のコンストラクター関数のプロトタイプを受け継いで機能を流用できるようにすること
 // コンストラクター関数間でプロトタイプを共有できる
-// 継承：別のコンストラクター関数をそのまま受け継ぐこと
+// 継承：別のコンストラクター関数をそのまま受け継ぐこと（継承元のprototypeは継承されないので必要によってプロトタイプ継承で）
 function Person(name, age) {
   this.name = name;
   this.age = age;
@@ -18,7 +18,7 @@ function Japanese(name, age) {
 
 // プロトタイプ継承
 // createメソッドを使ってあるコンストラクター関数のprototypeを別のコンストラクター関数に継承させる
-Japanese.prototype = Object.create(Person.prototype);
+// Japanese.prototype = Object.create(Person.prototype);
 
 const person = new Person("Tom", 18);
 console.log(person.name);
