@@ -52,3 +52,45 @@ function loginController(user) {
     console.log('login failed');
   }
 }
+
+class Person {
+  constructor(name) {
+    this.name = name;
+    this.roll = "";
+    this.path = "";
+  }
+
+  login() {
+    console.log("User: " + this.name);
+    return true;
+  }
+
+  checkRoll() {
+    console.log("you have " + this.roll);
+    return true;
+  }
+
+  redirect() {
+    console.log("redirect: " + this.path);
+    return true;
+  }
+}
+
+class User extends Person {
+  constructor(name) {
+    super(name);
+    this.roll = "normal roll";
+    this.path = "/";
+  }
+}
+
+class AdminUser extends Person {
+  constructor(name) {
+    super(name);
+    this.roll = "admin roll";
+    this.path = "/admin";
+  }
+}
+
+loginController(new User('Bob'));
+loginController(new AdminUser('Tom'));
