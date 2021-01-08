@@ -16,6 +16,8 @@ const obj = {
 
 Object.prototype.method = function() {}
 
+// forinでは対象オブジェクトのディスクリプターのenumerableの設定値をみている
+// forinの()内で定義される変数には対象オブジェクトのプロパティ名が格納される
 for(let key in obj) {
 	// obj.hasOwnProperty(key) でkeyに格納されるprototypeを含むプロパティが自分自身のプロパティかを判別する
 	// 自分自身のプロパティならtrue、prototypeなどならfalseを返す
