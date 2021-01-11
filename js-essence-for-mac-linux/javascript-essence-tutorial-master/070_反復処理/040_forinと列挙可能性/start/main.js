@@ -1,4 +1,4 @@
-// ディスクリプターのenumerable(列挙可能性)がtrueならばfor...inで列挙することが可能
+// Objectの設定値であるディスクリプターのenumerable(列挙可能性)がtrueならばfor...inで列挙することが可能
 // prototypeも列挙されるためオブジェクト自身のプロパティのみ列挙したい場合はprototypeのenumerableはfalseとしておく
 // prototypeを列挙対象外にしたい場合はfor..inの中でhasOwnPropertyを使用する
 // ビルドインオブジェクト（JSが準備してるオブジェクト）は基本的にenumerableはfalseとなっている
