@@ -33,6 +33,6 @@ Object.prototype[Symbol.iterator] = function() {
 }
 
 // const items = Object.entries(obj);
-for (let item of items) {
-	console.log(item);
+for (let　[k ,v] of items) {
+	console.log(k, v);
 }
