@@ -33,6 +33,7 @@ function genStep(min, max, step) {
           done: true
         }
       } else {
+        // 条件判定の前に加算処理を行わないとおかしな挙動になる
         // res = res + step;
         return {
           done: false,

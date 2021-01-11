@@ -18,3 +18,28 @@
  * 
  * の値が順番にコンソールに表示されます。
  */
+
+const it = genStep({min: 4, max: 10, step: 2});
+
+// ↓のようにオブジェクトを引数にとる値は各プロパティの初期値、そもそも引数が渡されなかった場合の初期値としてのオブジェクトを
+// 記載しておくことでエラーを防ぐ
+// fuction* genStep({min = 0, max = 20, step = 1} = {}){
+
+// }
+
+function* genStep(obj) {
+  let {min} = obj;
+  let {max} = obj;
+  let {step} = obj;
+  let i = min;
+  while(i <= max) {
+    yield i;
+    i += step;
+  }
+  // returnはあってもなくてもいい
+  return;
+}
+
+for(let value of it) {
+  console.log(value);
+}
