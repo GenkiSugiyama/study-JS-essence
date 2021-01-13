@@ -9,6 +9,10 @@
 // for...in：Array→使える、Set→使えない
 // for...of：どちらも使える
 
+// MapとSetの違い
+// Map：キーと値を持ったデータの塊（オブジェクトに似てる）
+// Set：値が重複しない、インデックスがない配列のようなもの
+
 const map = new Map();
 const key1 = {}; // mapのkeyにオブジェクトを指定している
 
