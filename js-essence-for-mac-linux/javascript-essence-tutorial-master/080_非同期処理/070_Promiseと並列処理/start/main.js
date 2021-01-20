@@ -3,7 +3,7 @@ function sleep(val) {
     setTimeout(function() {
       console.log(val++);
       resolve(val);
-    }, 1000);
+    }, val * 500);
   });
 }
 
