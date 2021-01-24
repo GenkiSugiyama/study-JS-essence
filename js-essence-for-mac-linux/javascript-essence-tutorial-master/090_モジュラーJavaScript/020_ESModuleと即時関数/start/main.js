@@ -6,7 +6,7 @@ const moduleA = (function () {
   let publicVal = 10;
 
   function publicFn() {
-    console.log('publicFn called: ' + publicVal);
+    console.log('publicFn called: ' + publicVal++);
   }
 
   function privateFn() {
@@ -18,3 +18,14 @@ const moduleA = (function () {
     publicVal
   }
 })();
+
+const moduleB = (function({publicFn, publicVal}){
+  publicFn();
+  publicFn();
+  publicFn();
+  console.log(publicVal);
+  publicFn();
+})(moduleA);
+
+
+
