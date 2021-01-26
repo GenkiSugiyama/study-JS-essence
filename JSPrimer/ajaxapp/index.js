@@ -1,0 +1,26 @@
+console.log("index.js: loaded");
+
+// githubからユーザー情報を取得するための処理
+// githubが用意しているAPIにfetchAPIを使ってアクセスする
+const userId = 'GenkiSugiyama';
+
+// HTTP通信を行うためのfetchAPIを使うことで引数に渡すURLに対してリクエストを行う
+// fetchはPromiseを返すので通信成功時はthen()で、エラー時はcatchで繋げられる
+// このfetchが返すPromiseインスタンスはリクエストに対するレスポンスを表すResponseオブジェクトを戻り値に持つので
+// 通信が成功した場合はサーバーから返ってきたresponseをthenメソッドで利用できる
+
+function fetchUserInfo(userId){
+  fetch(`https://api.github.com/users/${encodeURIComponent(userId)}`)
+  .then((response) => {
+    console.log(response.status);
+    if(!response.ok){
+      console.error("エラーレスポンス", response);
+    } else {
+      return response.json().then((userInfo) => {
+        console.log(userInfo);
+      });
+    }
+  }).catch((error) => {
+    console.log(error);
+  });
+}
