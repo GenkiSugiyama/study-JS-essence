@@ -9,14 +9,16 @@ const userId = 'GenkiSugiyama';
 // このfetchが返すPromiseインスタンスはリクエストに対するレスポンスを表すResponseオブジェクトを戻り値に持つので
 // 通信が成功した場合はサーバーから返ってきたresponseをthenメソッドで利用できる
 
-function main(){
-  fetchUserInfo(userId)
-    .then((userInfo) => createView(userInfo)) // fetchUserInfoが返すrepornse.json()で取り出したuserInfoを使う
-    .then((view) => displayView(view)) //createViewが返すHTML要素を使う
-    .catch((error) => {
-      // fetchAPIが返すerror（Promiseオブジェクト）を受けとる
-      console.error(`エラーが発生しました（${error}）`);
-    });
+// Asyncfunctionへの書き換え
+async function main(){
+  try{
+    const userInfo = await fetchUserInfo(userId);
+    const view = createView(userInfo);
+    displayView(view)
+  } catch(error) {
+    console.error(`エラーが発生しました（${error}）`);
+
+  }
 }
 
 function fetchUserInfo(userId){
