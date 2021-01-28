@@ -11,10 +11,12 @@ const userId = 'GenkiSugiyama';
 
 function main(){
   fetchUserInfo(userId)
-  .catch((error) => {
-    // fetchAPIが返すerror（Promiseオブジェクト）を受けとる
-    console.error(`エラーが発生しました（${error}）`);
-  });
+    .then((userInfo) => createView(userInfo)) // fetchUserInfoが返すrepornse.json()で取り出したuserInfoを使う
+    .then((view) => displayView(view)) //createViewが返すHTML要素を使う
+    .catch((error) => {
+      // fetchAPIが返すerror（Promiseオブジェクト）を受けとる
+      console.error(`エラーが発生しました（${error}）`);
+    });
 }
 
 function fetchUserInfo(userId){
@@ -25,17 +27,17 @@ function fetchUserInfo(userId){
       console.error("エラーレスポンス", response);
       return Promise.reject(new Error(`${response.status}：${response.statusText}`));
     } else {
-      return response.json().then((userInfo) => {
-        console.log(userInfo);
-        // APIで取得した要素をHTMLに表示させる
-        // HTMLの組み立てを関数化
-        const view = createView(userInfo);
-        // HTMLの描画も関数化
-        displayView(view);
-      });
+      return response.json()
+      // fetchAPIが返すresponseの中身をjsonメソッドで取り出したjsonオブジェクトだけ返す
+      // .then((userInfo) => {
+      //   console.log(userInfo);
+      //   // APIで取得した要素をHTMLに表示させる
+      //   // HTMLの組み立てを関数化
+      //   const view = createView(userInfo);
+      //   // HTMLの描画も関数化
+      //   displayView(view);
+      // });
     }
-  }).catch((error) => {
-    console.log(error);
   });
 }
 
