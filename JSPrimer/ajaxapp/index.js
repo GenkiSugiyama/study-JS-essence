@@ -10,15 +10,20 @@ const userId = 'GenkiSugiyama';
 // 通信が成功した場合はサーバーから返ってきたresponseをthenメソッドで利用できる
 
 function main(){
-  fetchUserInfo(userId);
+  fetchUserInfo(userId)
+  .catch((error) => {
+    // fetchAPIが返すerror（Promiseオブジェクト）を受けとる
+    console.error(`エラーが発生しました（${error}）`);
+  });
 }
 
 function fetchUserInfo(userId){
-  fetch(`https://api.github.com/users/${encodeURIComponent(userId)}`)
+  return fetch(`https://api.github.com/users/${encodeURIComponent(userId)}`)
   .then((response) => {
     console.log(response.status);
     if(!response.ok){
       console.error("エラーレスポンス", response);
+      return Promise.reject(new Error(`${response.status}：${response.statusText}`));
     } else {
       return response.json().then((userInfo) => {
         console.log(userInfo);
