@@ -9,6 +9,10 @@ const userId = 'GenkiSugiyama';
 // このfetchが返すPromiseインスタンスはリクエストに対するレスポンスを表すResponseオブジェクトを戻り値に持つので
 // 通信が成功した場合はサーバーから返ってきたresponseをthenメソッドで利用できる
 
+function main(){
+  fetchUserInfo(userId);
+}
+
 function fetchUserInfo(userId){
   fetch(`https://api.github.com/users/${encodeURIComponent(userId)}`)
   .then((response) => {
@@ -19,25 +23,33 @@ function fetchUserInfo(userId){
       return response.json().then((userInfo) => {
         console.log(userInfo);
         // APIで取得した要素をHTMLに表示させる
-        // HTMLの組み立てを変数に格納
-        const view = escapeHTML`
-        <h4>${userInfo.name} (@${userInfo.login})</h4>
-        <img scr="${userInfo.avatar_url}" alt="${userInfo.login}" height="100">
-        <dl>
-          <dt>Location</dt>
-          <dd>${userInfo.location}</dd>
-          <dt>Repositories</dt>
-          <dd>${userInfo.public_repos}</dd>
-        </dl>
-        `;
-
-        const result = document.getElementById('result');
-        result.innerHTML = view;
+        // HTMLの組み立てを関数化
+        const view = createView(userInfo);
+        // HTMLの描画も関数化
+        displayView(view);
       });
     }
   }).catch((error) => {
     console.log(error);
   });
+}
+
+function createView(userInfo){
+  return escapeHTML`
+  <h4>${userInfo.name} (@${userInfo.login})</h4>
+  <img scr="${userInfo.avatar_url}" alt="${userInfo.login}" height="100">
+  <dl>
+    <dt>Location</dt>
+    <dd>${userInfo.location}</dd>
+    <dt>Repositories</dt>
+    <dd>${userInfo.public_repos}</dd>
+  </dl>
+  `;
+}
+
+function displayView(view){
+  const result = document.getElementById('result');
+  result.innerHTML = view;
 }
 
 // 文字列のエスケープ
