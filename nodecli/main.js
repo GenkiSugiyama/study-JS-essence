@@ -3,11 +3,21 @@
 const program = require("commander");
 // ファイルの読み書き機能を提供するfsモジュールをインポートする
 const fs = require("fs");
+// markdownからHTMLに変換するためのmarkedライブラリをインポート
+const marked = require("marked");
 
+// gfmオブションを定義する
+program.option("--gfm", "GFMを有効にする");
 // process.argvでコマンドライン引数へアクセス、それをparseメソッドに渡す
 // parseメソッドでコマンドライン引数をパースした結果を取り出す（program.args内に配列の要素として格納される）
 program.parse(process.argv);
 const filePath = program.args[0];
+
+// コマンドライン引数内のオプションを取得し、デフォルトのオプションを上書きする
+const cliOptions = {
+  gfm: false,
+  ...program.opts(),
+}
 
 // fsモジュールのメソッドは常にコールバック関数を受け取る（↓は第二引数にコールバック関数渡してる）
 // コールバック関数の第一引数は必ずメソッドの処理内で起こるエラーオブジェクトとなり、残りの引数は返り値となる 
@@ -20,7 +30,12 @@ fs.readFile(filePath, { encoding: "utf8" },(err, file) => {
     process.exit(1);
     return;
   }
+  // MarkdownファイルをHTML文字列に変換する
+  const html = marked(file, {
+    // オプションの値を使用する
+    gfm: cliOptions.gfm,
+  });
   // ファイルの中身をそのまま確認しようとすると文字列ではなくバイト列として保持しているので中身が確認できない
   // →readFile関数の第二引数にエンコードを指定することで文字列に変換された状態でコールバック関数に渡される
-  console.log(file);
+  console.log(html);
 });
