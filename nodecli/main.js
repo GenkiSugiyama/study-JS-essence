@@ -3,8 +3,8 @@
 const program = require("commander");
 // ファイルの読み書き機能を提供するfsモジュールをインポートする
 const fs = require("fs");
-// markdownからHTMLに変換するためのmarkedライブラリをインポート
-const marked = require("marked");
+// markdownの変換処理を別ファイルでモジュール化したのでmd2htmlモジュールをインポート
+const md2html = require("./md2html");
 
 // gfmオブションを定義する
 program.option("--gfm", "GFMを有効にする");
@@ -30,12 +30,18 @@ fs.readFile(filePath, { encoding: "utf8" },(err, file) => {
     process.exit(1);
     return;
   }
-  // MarkdownファイルをHTML文字列に変換する
-  const html = marked(file, {
-    // オプションの値を使用する
-    gfm: cliOptions.gfm,
-  });
-  // ファイルの中身をそのまま確認しようとすると文字列ではなくバイト列として保持しているので中身が確認できない
-  // →readFile関数の第二引数にエンコードを指定することで文字列に変換された状態でコールバック関数に渡される
+  // 文字列変換処理はモジュールに処理させる
+  const html = md2html(file, cliOptions);
   console.log(html);
 });
+
+// // gfmオプションを定義する
+// program.option("--gfm", "GFMを有効にする");
+// program.option("--genki", "GFMを有効にする");
+
+// // コマンドライン引数をパースする
+// program.parse(process.argv);
+// // オプションのパース結果をオブジェクトとして取得する
+// const options = program.opts();
+// console.log(program.opts());
+// console.log(options.gfm);
