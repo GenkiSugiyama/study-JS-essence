@@ -21,3 +21,26 @@ export class App {
     })
   }
 }
+
+import { EventEmitter } from "./EventEmitter.js";
+const event = new EventEmitter();
+// イベントリスナー（コールバック関数）を登録
+event.addEventListener("test-event", () => console.log("One!"));
+event.addEventListener("test-event", () => console.log("Two!"));
+// イベントをディスパッチする
+event.emit("test-event");
+// コールバック関数がそれぞれ呼びだされ、コンソールには次のように出力される
+// "One!"
+// "Two!"
+
+import { TodoItemModel } from "./model/TodoItemModel.js";
+const item = new TodoItemModel({
+    title: "未完了のTodoアイテム",
+    completed: false
+});
+const completedItem = new TodoItemModel({
+    title: "完了済みのTodoアイテム",
+    completed: true
+});
+// それぞれの`id`は異なる
+console.log(item.id !== completedItem.id); // => true
